@@ -24,3 +24,5 @@ Binaries
 CMakeFiles
 .vs
 Scripts
+.DS_Store
+

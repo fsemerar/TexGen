@@ -13,7 +13,7 @@ ENDIF(MSVC80)
 # -Wno-deprecated filters out the known warning that VTK throws up as it uses
 # an old style stl header
 IF(UNIX)
-	ADD_DEFINITIONS(-Wno-deprecated -fPIC)
+	ADD_DEFINITIONS(-Wno-deprecated -fPIC -Wno-error=implicit-function-declaration)
 ENDIF(UNIX)
 
 # ADD_DEFINITIONS(-DTIXML_USE_STL)

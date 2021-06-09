@@ -79,7 +79,7 @@ void CVoxelMesh::SaveVoxelMesh(CTextile &Textile, string OutputFilename, int XVo
 		timer.stop();
 	}
 	else
-		SaveVoxelMeshToVTK(OutputFilename, Textile);
+		SaveVoxelMeshToVTK(OutputFilename, Textile, bOutputYarns);
 
    // PROFILE_END();
    // PROFILER_UPDATE();
@@ -238,7 +238,7 @@ void CVoxelMesh::AddElements()
 	}
 }*/
 
-void CVoxelMesh::SaveVoxelMeshToVTK(string Filename, CTextile &Textile )
+void CVoxelMesh::SaveVoxelMeshToVTK(string Filename, CTextile &Textile, bool bOutputYarns)
 {
 	AddExtensionIfMissing(Filename, ".vtu");
 	ofstream Output(Filename.c_str());
@@ -270,11 +270,13 @@ void CVoxelMesh::SaveVoxelMeshToVTK(string Filename, CTextile &Textile )
 	vector<CMeshDataBase*> MeshData;
 
 	MeshData.push_back(&YarnIndex);
-	MeshData.push_back(&YarnTangent);
-	MeshData.push_back(&Location);
-	MeshData.push_back(&VolumeFraction);
-	MeshData.push_back(&SurfaceDistance);
-	MeshData.push_back(&Orientation);
+	// MeshData.push_back(&YarnTangent);
+	// MeshData.push_back(&Location);
+	// MeshData.push_back(&VolumeFraction);
+	// MeshData.push_back(&SurfaceDistance);
+	if (bOutputYarns) {
+		MeshData.push_back(&Orientation);
+	}
 
 	m_Mesh.SaveToVTK(Filename, &MeshData);
 }

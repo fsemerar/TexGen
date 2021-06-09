@@ -67,7 +67,7 @@ namespace TexGen
 		/// Add hex elements
 		//void AddElements();
 		/// Save voxel mesh in VTK format without boundary conditions
-		void SaveVoxelMeshToVTK(string Filename, CTextile &Textile);
+		void SaveVoxelMeshToVTK(string Filename, CTextile &Textile, bool bOutputYarns);
 		/// Save voxel mesh in Abaqus .inp format with periodic boundary conditions
 		/// bOutputMatrix and bOutput yarn specify which of these are saved to the Abaqus file
 		void SaveToAbaqus( string Filename, CTextile &Textile, bool bOutputMatrix, bool bOutputYarn, int iBoundaryConditions, int iElementType );
