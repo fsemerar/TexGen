@@ -94,7 +94,7 @@ bool CShellElementExport::SaveShellElementToABAQUS(string Filename, CTextile& Te
 	delete( m_Materials );
 
 	const vector<XYZ> &Repeats = Textile.GetYarn(0)->GetRepeats();
-	map<string, vector<pair<int, int>> > SurfaceDefinitions;
+	map<string, vector<pair<int, int> > > SurfaceDefinitions;
 
 	CreateSurfaceDefinitions( iNumYarns, Repeats, SurfaceDefinitions);
 	TGLOG("Creating surfaces");
@@ -123,20 +123,20 @@ bool CShellElementExport::SaveShellElementToABAQUS(string Filename, CTextile& Te
 	return true;
 }
 
-void CShellElementExport::CreateSurfaceDefinitions( int iNumYarns, const vector<XYZ> &Repeats, map<string, vector<pair<int, int>> > &SurfaceDefinitions)
+void CShellElementExport::CreateSurfaceDefinitions( int iNumYarns, const vector<XYZ> &Repeats, map<string, vector<pair<int, int> > > &SurfaceDefinitions)
 {
 	for (int i=0; i<iNumYarns; ++i)
 	{
 		TGLOG("Creating yarn " << i << " surface definitions");
 		if ( m_bWholeSurfaces )
 		{
-			vector<pair<YarnNumber,int>> Elements;
+			vector<pair<YarnNumber,int> > Elements;
 			GetYarnSurface( i, Elements );
 			SurfaceDefinitions["YarnSurf" + stringify(i)] = Elements;
 		}
 		else
 		{
-			vector<pair<int,int>> UpperFaces, LowerFaces;
+			vector<pair<int,int> > UpperFaces, LowerFaces;
 			GetYarnSurfaces( i, Repeats, UpperFaces, LowerFaces );
 			SurfaceDefinitions["Yarn" + stringify(i) + "Lower"] = LowerFaces;
 			SurfaceDefinitions["Yarn" + stringify(i) + "Upper"] = UpperFaces;
@@ -144,7 +144,7 @@ void CShellElementExport::CreateSurfaceDefinitions( int iNumYarns, const vector<
 	}
 }
 
-void CShellElementExport::GetYarnSurfaces(int iYarn, const vector<XYZ> &Repeats, vector<pair<int,int>> &UpperFaces, vector<pair<int,int>> &LowerFaces )
+void CShellElementExport::GetYarnSurfaces(int iYarn, const vector<XYZ> &Repeats, vector<pair<int,int> > &UpperFaces, vector<pair<int,int> > &LowerFaces )
 {
 	CMesh SurfaceMesh = m_YarnMeshes[iYarn];
 	SurfaceMesh.RemoveElementType(CMesh::POLYGON);
@@ -191,7 +191,7 @@ void CShellElementExport::GetYarnSurfaces(int iYarn, const vector<XYZ> &Repeats,
 	
 }
 
-void CShellElementExport::GetYarnSurface(int iYarn, vector<pair<int,int>> &Elements )
+void CShellElementExport::GetYarnSurface(int iYarn, vector<pair<int,int> > &Elements )
 {
 	// Get the yarn surface
 	int ElementNum;
@@ -210,15 +210,15 @@ void CShellElementExport::GetYarnSurface(int iYarn, vector<pair<int,int>> &Eleme
 	
 }
 
-void CShellElementExport::CreateSurfaces(ostream &Output, map< string, vector<pair<YarnNumber,int>> > &SurfaceDefinitions)
+void CShellElementExport::CreateSurfaces(ostream &Output, map< string, vector<pair<YarnNumber,int> > > &SurfaceDefinitions)
 {
 	// Now output the surface definitions
 	Output << "***************************" << endl;
 	Output << "*** SURFACE DEFINITIONS ***" << endl;
 	Output << "***************************" << endl;
-	vector<pair<YarnNumber,int>>::iterator itElements;
+	vector<pair<YarnNumber,int> >::iterator itElements;
 	
-	map<string, vector<pair<YarnNumber,int>> >::iterator itSurfDef;
+	map<string, vector<pair<YarnNumber,int> > >::iterator itSurfDef;
 	
 	for (itSurfDef = SurfaceDefinitions.begin(); itSurfDef != SurfaceDefinitions.end(); ++itSurfDef)
 	{
